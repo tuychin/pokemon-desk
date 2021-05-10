@@ -3,7 +3,7 @@ import React from 'react';
 const App = () => {
   return (
     <div>
-      App component!
+      App component is run!
     </div>
   );
 };
