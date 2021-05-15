@@ -106,3 +106,6 @@ dist
 # IDE's
 .vscode/
 .idea/
+
+# TypeScript
+src/**.d.ts
