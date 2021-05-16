@@ -6,7 +6,8 @@
     "build:prod": "env NODE_ENV=production webpack --config webpack.config.js",
     "start": "env NODE_ENV=development webpack-dev-server",
     "pretty": "pretty-quick",
-    "lint": "eslint ./src"
+    "lint": "eslint ./src",
+    "ts": "ts-node ./src"
   },
   "main": "index.js",
   "repository": "git@github.com:tuychin/pokemon-desk.git",
