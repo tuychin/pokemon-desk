@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../../components/Header';
 import Layout from '../../components/Layout';
 import Button from '../../components/Button';
+import Parallax from '../../components/Parallax';
 
 import style from './Home.module.scss';
 
@@ -17,7 +18,9 @@ const HomePage = () => {
           <p>You can know the type of Pokemon, its strengths, disadvantages and abilities</p>
           <Button onClick={() => console.log('Click button!')}>See Pokemons</Button>
         </div>
-        <div className={style.contentParallax}>Soon...</div>
+        <div className={style.contentParallax}>
+          <Parallax />
+        </div>
       </Layout>
     </div>
   );
