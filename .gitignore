@@ -108,4 +108,5 @@ dist
 .idea/
 
 # TypeScript
-src/**.d.ts
+**.d.ts
+!custom.d.ts
