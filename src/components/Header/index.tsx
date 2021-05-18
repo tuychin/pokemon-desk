@@ -9,7 +9,6 @@ import { ReactComponent as PokemonLogoSvg } from './assets/Logo.svg';
 
 const Header = () => {
   const path = usePath();
-  console.log('path:', path);
 
   return (
     <div className={style.root}>
