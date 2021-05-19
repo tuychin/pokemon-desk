@@ -1,7 +1,6 @@
 import React from 'react';
 import { useRoutes } from 'hookrouter';
 import routes from './routes';
-import Header from './components/Header';
 import NotFoundPage from './pages/NotFound';
 
 import style from './App.module.scss';
@@ -9,12 +8,7 @@ import style from './App.module.scss';
 const App = () => {
   const match = useRoutes(routes);
 
-  return (
-    <div className={style.root}>
-      <Header />
-      {match || <NotFoundPage />}
-    </div>
-  );
+  return <div className={style.root}>{match || <NotFoundPage />}</div>;
 };
 
 export default App;
