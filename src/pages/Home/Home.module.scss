@@ -1,4 +1,14 @@
+@import '../../variables';
+
 .root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 93px);
+  background: linear-gradient(180deg, $third 0%, $primary 100%);
+}
+
+.contentWrap {
   display: flex;
   justify-content: space-between;
   align-items: center;

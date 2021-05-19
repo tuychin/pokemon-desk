@@ -2,7 +2,6 @@ import React from 'react';
 import { useRoutes } from 'hookrouter';
 import routes from './routes';
 import Header from './components/Header';
-import Layout from './components/Layout';
 import NotFoundPage from './pages/NotFound';
 
 import style from './App.module.scss';
@@ -13,7 +12,7 @@ const App = () => {
   return (
     <div className={style.root}>
       <Header />
-      <Layout>{match || <NotFoundPage />}</Layout>
+      {match || <NotFoundPage />}
     </div>
   );
 };
