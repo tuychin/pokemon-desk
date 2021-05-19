@@ -1,5 +1,6 @@
 import React from 'react';
 import HomePage from './pages/Home';
+import Pokedex from './pages/Pokedex';
 import EmptyPage from './pages/Empty';
 
 interface IRoute {
@@ -24,7 +25,7 @@ export const ROUTES: IRoute[] = [
   {
     title: 'Pokédex',
     link: LinkEnum.POKEDEX,
-    component: () => <EmptyPage title="Pokedex" />,
+    component: () => <Pokedex title="Pokedex" />,
   },
   {
     title: 'Legendaries',
