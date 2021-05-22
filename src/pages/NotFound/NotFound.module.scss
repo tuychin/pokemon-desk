@@ -1,0 +1,44 @@
+@import '../../variables';
+
+.root {
+  min-height: 100vh;
+  font-family: Karla;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 48px;
+  line-height: 56px;
+  background-color: $danger;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100vw;
+  height: 672px;
+}
+
+.image {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.text {
+  margin-bottom: 60px;
+}
+
+.whiteText {
+  color: $white;
+}
+
+.blackText {
+  color: $dark;
+}
