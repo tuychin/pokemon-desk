@@ -25,7 +25,7 @@ export const ROUTES: IRoute[] = [
   {
     title: 'Pokédex',
     link: LinkEnum.POKEDEX,
-    component: () => <Pokedex title="Pokedex" />,
+    component: () => <Pokedex />,
   },
   {
     title: 'Legendaries',
