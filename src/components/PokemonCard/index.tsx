@@ -10,11 +10,9 @@ export interface IPokemonCardProps {
   stats: {
     attack: number;
     defense: number;
-    [n: string]: number;
   };
   types: string[];
   img: string;
-  [n: string]: string | number | [];
 }
 
 const PokemonCard: React.FC<IPokemonCardProps> = ({

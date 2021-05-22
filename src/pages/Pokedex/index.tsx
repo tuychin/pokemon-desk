@@ -14,7 +14,7 @@ const PokedexPage = () => {
       <div className={style.root}>
         <Layout className={style.contentWrap}>
           {pokemons.map((pokemon: IPokemonCardProps) => (
-            <PokemonCard {...pokemon} />
+            <PokemonCard key={pokemon.name} {...pokemon} />
           ))}
         </Layout>
       </div>
