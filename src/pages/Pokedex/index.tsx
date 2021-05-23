@@ -6,26 +6,39 @@ import PokemonCard, { IPokemonCardProps } from '../../components/PokemonCard';
 
 import style from './Pokedex.module.scss';
 
-const PokedexPage = () => {
-  const [totalPokemons, setTotalPokemons] = useState(0);
-  const [pokemons, setPokemons] = useState([]);
+const usePokemons = () => {
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
+  const getPokemons = async () => {
+    try {
+      const res = await fetch('http://zar.hosthot.ru/api/v1/pokemons');
+      const result = await res.json();
+
+      console.log(result);
+
+      setData(result);
+    } catch (error) {
+      setIsError(false);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    fetch('http://zar.hosthot.ru/api/v1/pokemons')
-      .then((res) => res.json())
-      .then((data) => {
-        setTotalPokemons(data.total);
-        setPokemons(data.pokemons);
-      })
-      .catch(() => {
-        setIsError(false);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    getPokemons();
   }, []);
+
+  return {
+    data,
+    isLoading,
+    isError,
+  };
+};
+
+const PokedexPage = () => {
+  const { data, isLoading, isError } = usePokemons();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -35,13 +48,15 @@ const PokedexPage = () => {
     return <div>Something wrong!</div>;
   }
 
+  console.log(data);
+
   return (
     <div>
       <Layout className={style.contentWrap}>
         <Heading className={style.title} type="h1">
-          {totalPokemons} <b>Pokemons</b> for you to choose your favorite
+          {data.total} <b>Pokemons</b> for you to choose your favorite
         </Heading>
-        {pokemons.map((pokemon: IPokemonCardProps) => (
+        {data.pokemons.map((pokemon: IPokemonCardProps) => (
           <PokemonCard key={pokemon.name} {...pokemon} />
         ))}
       </Layout>
