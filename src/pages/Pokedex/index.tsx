@@ -14,7 +14,10 @@ const usePokemons = () => {
   const [isError, setIsError] = useState(false);
 
   const getPokemons = async () => {
-    const url = `${apiConfig.client.server.protocol}://${apiConfig.client.server.host}${apiConfig.client.endpoint.getPokemons.uri.pathname}`;
+    const { protocol, host } = apiConfig.client.server;
+    const { pathname } = apiConfig.client.endpoint.getPokemons.uri;
+
+    const url = `${protocol}://${host}${pathname}`;
 
     try {
       const res = await fetch(url);
