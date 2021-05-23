@@ -4,6 +4,8 @@ import Layout from '../../components/Layout';
 import Heading from '../../components/Heading';
 import PokemonCard, { IPokemonCardProps } from '../../components/PokemonCard';
 
+import apiConfig from '../../api-config';
+
 import style from './Pokedex.module.scss';
 
 const usePokemons = () => {
@@ -12,11 +14,11 @@ const usePokemons = () => {
   const [isError, setIsError] = useState(false);
 
   const getPokemons = async () => {
-    try {
-      const res = await fetch('http://zar.hosthot.ru/api/v1/pokemons');
-      const result = await res.json();
+    const url = `${apiConfig.client.server.protocol}://${apiConfig.client.server.host}${apiConfig.client.endpoint.getPokemons.uri.pathname}`;
 
-      console.log(result);
+    try {
+      const res = await fetch(url);
+      const result = await res.json();
 
       setData(result);
     } catch (error) {
@@ -47,8 +49,6 @@ const PokedexPage = () => {
   if (isError) {
     return <div>Something wrong!</div>;
   }
-
-  console.log(data);
 
   return (
     <div>
