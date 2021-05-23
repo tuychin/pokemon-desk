@@ -4,7 +4,7 @@ import Layout from '../../components/Layout';
 import Heading from '../../components/Heading';
 import PokemonCard, { IPokemonCardProps } from '../../components/PokemonCard';
 
-import apiConfig from '../../api-config';
+import req from '../../utils/request';
 
 import style from './Pokedex.module.scss';
 
@@ -14,14 +14,8 @@ const usePokemons = () => {
   const [isError, setIsError] = useState(false);
 
   const getPokemons = async () => {
-    const { protocol, host } = apiConfig.client.server;
-    const { pathname } = apiConfig.client.endpoint.getPokemons.uri;
-
-    const url = `${protocol}://${host}${pathname}`;
-
     try {
-      const res = await fetch(url);
-      const result = await res.json();
+      const result = await req('getPokemons');
 
       setData(result);
     } catch (error) {
