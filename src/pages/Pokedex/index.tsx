@@ -1,43 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
+import useData from '../../hooks/useData';
 import Layout from '../../components/Layout';
 import Heading from '../../components/Heading';
 import PokemonCard, { IPokemonCardProps } from '../../components/PokemonCard';
 
-import req from '../../utils/request';
-
 import style from './Pokedex.module.scss';
 
-const usePokemons = () => {
-  const [data, setData] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
-
-  const getPokemons = async () => {
-    try {
-      const result = await req('getPokemons');
-
-      setData(result);
-    } catch (error) {
-      setIsError(false);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getPokemons();
-  }, []);
-
-  return {
-    data,
-    isLoading,
-    isError,
-  };
-};
-
 const PokedexPage = () => {
-  const { data, isLoading, isError } = usePokemons();
+  const [searchValue, setSearchValue] = useState('');
+  const [query, setQuery] = useState(null);
+
+  const { data, isLoading, isError } = useData('getPokemons', query, [searchValue]);
+
+  const onSearchChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(evt.target.value);
+    setQuery((state) => ({
+      ...state,
+      name: evt.target.value,
+    }));
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -47,17 +29,22 @@ const PokedexPage = () => {
     return <div>Something wrong!</div>;
   }
 
-  return (
+  return !isLoading ? (
     <div>
       <Layout className={style.contentWrap}>
         <Heading className={style.title} type="h1">
           {data.total} <b>Pokemons</b> for you to choose your favorite
         </Heading>
+        <div>
+          <input type="text" value={searchValue} onChange={onSearchChange} />
+        </div>
         {data.pokemons.map((pokemon: IPokemonCardProps) => (
           <PokemonCard key={pokemon.name} {...pokemon} />
         ))}
       </Layout>
     </div>
+  ) : (
+    <div>Loading...</div>
   );
 };
 
