@@ -9,7 +9,7 @@ import req from '../../utils/request';
 import style from './Pokedex.module.scss';
 
 const usePokemons = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
