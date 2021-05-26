@@ -4,15 +4,10 @@ import Heading from '../Heading';
 
 import style from './PokemonCard.module.scss';
 
-export interface IPokemonCardProps {
+import { TypePokemon } from '../../interface/pokemons';
+
+export interface IPokemonCardProps extends TypePokemon {
   className?: string | null | undefined;
-  name: string;
-  stats: {
-    attack: number;
-    defense: number;
-  };
-  types: string[];
-  img: string;
 }
 
 const PokemonCard: React.FC<IPokemonCardProps> = ({
