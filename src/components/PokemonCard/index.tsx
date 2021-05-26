@@ -1,5 +1,8 @@
 import React from 'react';
 import cn from 'classnames';
+import { navigate } from 'hookrouter';
+import { LinkEnum } from '../../routes';
+
 import Heading from '../Heading';
 
 import style from './PokemonCard.module.scss';
@@ -16,9 +19,14 @@ const PokemonCard: React.FC<IPokemonCardProps> = ({
   stats: { attack, defense },
   types,
   img,
+  id,
 }) => {
+  const onClick = (): void => {
+    navigate(`${LinkEnum.POKEDEX}/${id}`);
+  };
+
   return (
-    <div className={cn(style.root, className)}>
+    <div className={cn(style.root, className)} role="button" tabIndex={id} onClick={onClick} onKeyDown={onClick}>
       <div className={style.infoWrap}>
         <Heading size="xs" className={style.titleName}>
           {name}

@@ -48,7 +48,7 @@ const PokedexPage = () => {
           <input type="text" value={searchValue} onChange={onSearchChange} />
         </div>
         {data?.pokemons.map((pokemon: TypePokemon) => (
-          <PokemonCard key={pokemon.name} {...pokemon} />
+          <PokemonCard id={pokemon.id} key={pokemon.id} {...pokemon} />
         ))}
       </Layout>
     </div>

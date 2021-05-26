@@ -11,6 +11,12 @@ export const apiConfig = {
           pathname: '/api/v1/pokemons',
         },
       },
+      getPokemonsById: {
+        method: 'GET',
+        uri: {
+          pathname: '/api/v1/pokemons/:id',
+        },
+      },
     },
   },
 };
