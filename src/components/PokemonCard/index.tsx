@@ -1,18 +1,15 @@
 import React from 'react';
 import cn from 'classnames';
+
 import Heading from '../Heading';
 
 import style from './PokemonCard.module.scss';
 
-export interface IPokemonCardProps {
+import { TypePokemon } from '../../interface/pokemons';
+
+export interface IPokemonCardProps extends TypePokemon {
   className?: string | null | undefined;
-  name: string;
-  stats: {
-    attack: number;
-    defense: number;
-  };
-  types: string[];
-  img: string;
+  onClick: () => void;
 }
 
 const PokemonCard: React.FC<IPokemonCardProps> = ({
@@ -21,9 +18,11 @@ const PokemonCard: React.FC<IPokemonCardProps> = ({
   stats: { attack, defense },
   types,
   img,
+  id,
+  onClick,
 }) => {
   return (
-    <div className={cn(style.root, className)}>
+    <div className={cn(style.root, className)} role="button" tabIndex={id} onClick={onClick} onKeyDown={onClick}>
       <div className={style.infoWrap}>
         <Heading size="xs" className={style.titleName}>
           {name}

@@ -1,43 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { navigate } from 'hookrouter';
+import { LinkEnum } from '../../routes';
+
+import useData from '../../hooks/useData';
+import useDebounce from '../../hooks/useDebounce';
 
 import Layout from '../../components/Layout';
 import Heading from '../../components/Heading';
-import PokemonCard, { IPokemonCardProps } from '../../components/PokemonCard';
-
-import req from '../../utils/request';
+import PokemonCard from '../../components/PokemonCard';
 
 import style from './Pokedex.module.scss';
 
-const usePokemons = () => {
-  const [data, setData] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+import { TypePokemon, IPokemons } from '../../interface/pokemons';
 
-  const getPokemons = async () => {
-    try {
-      const result = await req('getPokemons');
-
-      setData(result);
-    } catch (error) {
-      setIsError(false);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getPokemons();
-  }, []);
-
-  return {
-    data,
-    isLoading,
-    isError,
-  };
-};
+interface IQuery {
+  name?: string;
+}
 
 const PokedexPage = () => {
-  const { data, isLoading, isError } = usePokemons();
+  const [searchValue, setSearchValue] = useState<string>('');
+  const [query, setQuery] = useState<IQuery | null>(null);
+  const debounceValue = useDebounce(searchValue, 500);
+
+  const { data, isLoading, isError } = useData<IPokemons>('getPokemons', query, [debounceValue]);
+
+  const onSearchChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(evt.target.value);
+    setQuery((state: IQuery) => ({
+      ...state,
+      name: evt.target.value,
+    }));
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -47,17 +40,27 @@ const PokedexPage = () => {
     return <div>Something wrong!</div>;
   }
 
-  return (
+  return !isLoading ? (
     <div>
       <Layout className={style.contentWrap}>
         <Heading className={style.title} type="h1">
-          {data.total} <b>Pokemons</b> for you to choose your favorite
+          {data?.total} <b>Pokemons</b> for you to choose your favorite
         </Heading>
-        {data.pokemons.map((pokemon: IPokemonCardProps) => (
-          <PokemonCard key={pokemon.name} {...pokemon} />
+        <div>
+          <input type="text" value={searchValue} onChange={onSearchChange} />
+        </div>
+        {data?.pokemons.map((pokemon: TypePokemon) => (
+          <PokemonCard
+            onClick={() => navigate(`${LinkEnum.POKEDEX}/${pokemon.id}`)}
+            id={pokemon.id}
+            key={pokemon.id}
+            {...pokemon}
+          />
         ))}
       </Layout>
     </div>
+  ) : (
+    <div>Loading...</div>
   );
 };
 

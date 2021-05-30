@@ -2,11 +2,12 @@ import React from 'react';
 import HomePage from './pages/Home';
 import Pokedex from './pages/Pokedex';
 import EmptyPage from './pages/Empty';
+import PokemonPage, { IPokemonProps } from './pages/Pokemon';
 
 interface IRoute {
   title: string;
   link: LinkEnum;
-  component: () => JSX.Element;
+  component: (props: React.PropsWithChildren<any>) => JSX.Element;
 }
 
 export enum LinkEnum {
@@ -14,6 +15,7 @@ export enum LinkEnum {
   POKEDEX = '/pokedex',
   LEGENDARIES = '/legendaries',
   DOCUMENTATION = '/documentation',
+  POKEMON = '/pokedex/:id',
 }
 
 export const ROUTES: IRoute[] = [
@@ -39,11 +41,19 @@ export const ROUTES: IRoute[] = [
   },
 ];
 
+const DEEP_ROUTES: IRoute[] = [
+  {
+    title: 'Pokemon',
+    link: LinkEnum.POKEMON,
+    component: ({ id }: IPokemonProps) => <PokemonPage id={id} />,
+  },
+];
+
 interface IAccumRoutes {
-  [n: string]: () => JSX.Element;
+  [n: string]: (props: React.PropsWithChildren<any>) => JSX.Element;
 }
 
-const routes = ROUTES.reduce((acc: IAccumRoutes, item: IRoute) => {
+const routes = [...ROUTES, ...DEEP_ROUTES].reduce((acc: IAccumRoutes, item: IRoute) => {
   acc[item.link] = item.component;
 
   return acc;
