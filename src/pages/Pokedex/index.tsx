@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { navigate } from 'hookrouter';
+import { LinkEnum } from '../../routes';
 
 import useData from '../../hooks/useData';
 import useDebounce from '../../hooks/useDebounce';
@@ -48,7 +50,12 @@ const PokedexPage = () => {
           <input type="text" value={searchValue} onChange={onSearchChange} />
         </div>
         {data?.pokemons.map((pokemon: TypePokemon) => (
-          <PokemonCard id={pokemon.id} key={pokemon.id} {...pokemon} />
+          <PokemonCard
+            onClick={() => navigate(`${LinkEnum.POKEDEX}/${pokemon.id}`)}
+            id={pokemon.id}
+            key={pokemon.id}
+            {...pokemon}
+          />
         ))}
       </Layout>
     </div>

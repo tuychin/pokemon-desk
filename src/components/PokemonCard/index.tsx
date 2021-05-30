@@ -1,7 +1,5 @@
 import React from 'react';
 import cn from 'classnames';
-import { navigate } from 'hookrouter';
-import { LinkEnum } from '../../routes';
 
 import Heading from '../Heading';
 
@@ -11,6 +9,7 @@ import { TypePokemon } from '../../interface/pokemons';
 
 export interface IPokemonCardProps extends TypePokemon {
   className?: string | null | undefined;
+  onClick: () => void;
 }
 
 const PokemonCard: React.FC<IPokemonCardProps> = ({
@@ -20,11 +19,8 @@ const PokemonCard: React.FC<IPokemonCardProps> = ({
   types,
   img,
   id,
+  onClick,
 }) => {
-  const onClick = (): void => {
-    navigate(`${LinkEnum.POKEDEX}/${id}`);
-  };
-
   return (
     <div className={cn(style.root, className)} role="button" tabIndex={id} onClick={onClick} onKeyDown={onClick}>
       <div className={style.infoWrap}>

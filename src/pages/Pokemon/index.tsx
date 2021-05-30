@@ -15,11 +15,13 @@ const PokemonPage: React.FC<IPokemonProps> = ({ id }) => {
     <div
       style={{
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: '20px',
       }}>
       <h1>Page id: {id}</h1>
+      <h2>Pokemon name: {data?.name_clean}</h2>
     </div>
   );
 };
