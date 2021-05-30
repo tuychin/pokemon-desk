@@ -18,7 +18,7 @@ export default function getEndpointParams(endpoint, query, endpointId): TypeGetE
     query,
   };
 
-  endpointParams?.pathname = endpointParams?.pathname?.replace(':id', endpointId);
+  endpointParams.pathname = endpointParams.pathname.replace(':id', endpointId);
 
   return endpointParams;
 }
