@@ -5,6 +5,7 @@
     "build:dev": "env NODE_ENV=development webpack --config webpack.config.js",
     "build:prod": "env NODE_ENV=production webpack --config webpack.config.js",
     "start": "env NODE_ENV=development webpack-dev-server",
+    "test": "npx jest --watch",
     "pretty": "pretty-quick",
     "lint": "eslint ./src",
     "ts": "ts-node ./src"

@@ -8,8 +8,7 @@ interface IPokemonProps {
 }
 
 const PokemonPage: React.FC<IPokemonProps> = ({ id }) => {
-  const { data } = useData<IPokemons>('getPokemonById', {}, [], id);
-  console.log(data);
+  const { data } = useData<IPokemons>('getPokemonById', { id }, []);
 
   return (
     <div

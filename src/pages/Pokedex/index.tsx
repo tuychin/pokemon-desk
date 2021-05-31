@@ -19,7 +19,7 @@ interface IQuery {
 
 const PokedexPage = () => {
   const [searchValue, setSearchValue] = useState<string>('');
-  const [query, setQuery] = useState<IQuery | null>(null);
+  const [query, setQuery] = useState<IQuery | null>({});
   const debounceValue = useDebounce(searchValue, 500);
 
   const { data, isLoading, isError } = useData<IPokemons>('getPokemons', query, [debounceValue]);
