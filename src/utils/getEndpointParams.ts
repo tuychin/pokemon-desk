@@ -1,15 +1,5 @@
 import apiConfig from '../api-config';
 
-type TypeGetEndpointParams = (
-  endpoint: string,
-  query: any,
-) => {
-  protocol: string;
-  host: string;
-  pathname: string;
-  params: object;
-} | void;
-
 interface IApiConfigUri {
   host: string;
   protocol: string;
@@ -25,7 +15,7 @@ interface IEndpoint {
   };
 }
 
-const getEndpointParams: TypeGetEndpointParams = (endpoint, params) => {
+const getEndpointParams = (endpoint: string, params: object) => {
   const { method, uri }: IEndpoint = apiConfig.client.endpoint[endpoint as keyof typeof apiConfig.client.endpoint];
   let body = {};
 
@@ -43,7 +33,7 @@ const getEndpointParams: TypeGetEndpointParams = (endpoint, params) => {
 
   const pathname = Object.keys(query).reduce((acc, val) => {
     if (acc.indexOf(`{${val}}`) !== -1) {
-      const result = acc.replace(`{${val}}`, query[val]);
+      const result = acc.replace(`{${val}}`, query[val as keyof typeof query]);
       delete query[val as keyof typeof query];
       return result;
     }
