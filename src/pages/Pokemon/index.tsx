@@ -1,6 +1,7 @@
 import React from 'react';
 import useData from '../../hooks/useData';
 
+import toCapitalizeFirstLetter from '../../utils/toCapitalizeFirstLetter';
 import { IPokemons } from '../../interface/pokemons';
 
 interface IPokemonProps {
@@ -8,8 +9,7 @@ interface IPokemonProps {
 }
 
 const PokemonPage: React.FC<IPokemonProps> = ({ id }) => {
-  const { data } = useData<IPokemons>('getPokemonById', {}, [], id);
-  console.log(data);
+  const { data } = useData<IPokemons>('getPokemonById', { id }, []);
 
   return (
     <div
@@ -21,7 +21,7 @@ const PokemonPage: React.FC<IPokemonProps> = ({ id }) => {
         marginTop: '20px',
       }}>
       <h1>Page id: {id}</h1>
-      <h2>Pokemon name: {data?.name_clean}</h2>
+      <h2>Pokemon name: {data && toCapitalizeFirstLetter(data.name)}</h2>
     </div>
   );
 };
