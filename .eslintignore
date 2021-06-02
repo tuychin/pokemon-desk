@@ -1,2 +1,5 @@
 webpack.config.js
-index.css
+webpack.client.config.js
+webpack.server.config.js
+
+*.css
